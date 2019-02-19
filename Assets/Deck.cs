@@ -21,14 +21,20 @@ public class Deck : MonoBehaviour {
         ShuffleArray(faces);
     }
 
+    public void OnMouseDown() {
+        transform.localScale = new Vector3(0.4f, 0.4f, 1.0f);
+    }
+
     public void OnMouseUp() {
-        if (card > faces.Length) {
+        transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        if (card >= faces.Length) {
             card = 0;
             ShuffleArray(faces);
         }
         leftCard.SetCard(faces[card], warFaces[faces[card]]);
-        rightCard.SetCard(faces[card + 1], warFaces[faces[card]]);
-        card += 2;
+        card++;
+        rightCard.SetCard(faces[card], warFaces[faces[card]]);
+        card++;
         Score();
     }
 
@@ -56,5 +62,7 @@ public class Deck : MonoBehaviour {
             faces[i] = faces[r];
             faces[r] = tmp;
         }
+        for (int i = 0; i < faces.Length; i++)
+            Debug.Log(faces[i]);
     }
 }
